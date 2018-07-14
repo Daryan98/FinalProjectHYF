@@ -79,15 +79,7 @@ class App extends Component {
                   <p>
                     {'Pub Year: ' + res.publishedYear}
                   </p>
-                  <div className='player-wrapper'>
-                    <label for='t-rex-roar'>
-                      <strong>Preview</strong>
-                    </label>
-                    <br/>
-                    <audio controls src='http://soundbible.com/mp3/Tyrannosaurus%20Rex%20Roar-SoundBible.com-807702404.mp3'>
-                      Your browser does not support the <code>audio</code> element.
-                    </audio>
-                  </div>
+                
                 </div>
             
                 ),

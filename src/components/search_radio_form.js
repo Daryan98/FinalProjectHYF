@@ -13,7 +13,6 @@ class RadioSearch extends Component {
       }
 
       handleChange(event) {
-        console.log(event.target.value);
         this.setState({
         FilterBy: event.target.value
         });
@@ -33,11 +32,11 @@ class RadioSearch extends Component {
                     // checked
                     type="radio"
                     value="all"
-                    checked
                     checked={this.state.FilterBy === "all"}
                     onChange={this.handleChange}
                     />
-                    All
+                    <span>All</span>
+
                 </label>
                 </li>
                 
@@ -49,7 +48,8 @@ class RadioSearch extends Component {
                     checked={this.state.FilterBy === "title"}
                     onChange={this.handleChange}
                     />
-                    Title
+                    <span>Title</span>
+
                 </label>
                 </li>
 
@@ -61,7 +61,8 @@ class RadioSearch extends Component {
                     checked={this.state.FilterBy === "artist"}
                     onChange={this.handleChange}
                     />
-                    Artist
+                    <span>Artist</span>
+                    
                 </label>
                 </li>
                 <li>
@@ -72,7 +73,7 @@ class RadioSearch extends Component {
                     checked={this.state.FilterBy === "year"}
                     onChange={this.handleChange}
                     />
-                    Year
+                    <span>Year</span>
                 </label>
                 </li>
             </ul>
