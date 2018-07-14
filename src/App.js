@@ -38,23 +38,7 @@ class App extends Component {
 
             <Radio_search />
 
-          {/* if filtering by year display this compo */}
-
-            {/* <SingleDropdownList
-              componentId='MusicSensor'
-              dataField='publishedYear.raw'
-              title='PubYear'
-              size={100}
-              sortBy='asc'
-              defaultSelected='2000'
-              showCount={true}
-              placeholder='Search Music'
-              selectAllLabel='All Years'
-              react={{ and: ['CategoryFilter', 'SearchFilter'] }}
-              showFilter={true}
-              filterLabel='Year'
-              URLParams={false}
-              className="dropdown" ></SingleDropdownList> */}
+          
           </div>
           <ResultCard
             componentId='result'
