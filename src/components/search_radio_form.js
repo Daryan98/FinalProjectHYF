@@ -1,0 +1,86 @@
+import React, { Component } from 'react'
+
+class RadioSearch extends Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+          FilterBy: 'all'
+        };
+        this.handleChange = this.handleChange.bind(this);
+        console.log(this.state.FilterBy);
+
+      }
+
+      handleChange(event) {
+        console.log(event.target.value);
+        this.setState({
+        FilterBy: event.target.value
+        });
+      }
+
+      
+  render () {
+    return (
+        <div>
+           <form>
+            <p>Filter the songs By:</p>
+            
+            <ul>
+                <li>
+                <label>
+                    <input 
+                    // checked
+                    type="radio"
+                    value="all"
+                    checked
+                    checked={this.state.FilterBy === "all"}
+                    onChange={this.handleChange}
+                    />
+                    All
+                </label>
+                </li>
+                
+                <li>
+                <label>
+                    <input
+                    type="radio"
+                    value="title"
+                    checked={this.state.FilterBy === "title"}
+                    onChange={this.handleChange}
+                    />
+                    Title
+                </label>
+                </li>
+
+                <li>
+                <label>
+                    <input
+                    type="radio"
+                    value="artist"
+                    checked={this.state.FilterBy === "artist"}
+                    onChange={this.handleChange}
+                    />
+                    Artist
+                </label>
+                </li>
+                <li>
+                <label>
+                    <input
+                    type="radio"
+                    value="year"
+                    checked={this.state.FilterBy === "year"}
+                    onChange={this.handleChange}
+                    />
+                    Year
+                </label>
+                </li>
+            </ul>
+
+            </form>
+        </div>
+    )
+  }
+}
+
+export default RadioSearch
