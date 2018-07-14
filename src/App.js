@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-
 import {
   ReactiveBase,
   CategorySearch,
@@ -9,10 +8,15 @@ import {
   SingleDropdownList,
   SelectedFilters
 } from "@appbaseio/reactivesearch";
-
 import Radio_search from "./components/search_radio_form";
-
 import "./index.css";
+
+const searchDataFieldDict = {
+  "all": ["artists", "titles", "publishedYear"],
+  "publishedYear": ["publishedYear.search"],
+  "artists": ["artists"],
+  "titles": ["titles"]
+}
 
 class App extends Component {
   state = {
@@ -27,10 +31,10 @@ class App extends Component {
 
   render() {
     // console.log({FilterBy: this.state.FilterBy});
-    const searchDataField =
-      this.state.FilterBy === "all"
-        ? ["titles", "artists", "publishedYear"]
-        : [this.state.FilterBy];
+    // const searchDataField =
+    //   this.state.FilterBy === "all"
+    //     ? ["titles", "artists", "publishedYear"]
+    //     : [this.state.FilterBy];
 
     return (
       // add and remove and create playlist
@@ -42,7 +46,7 @@ class App extends Component {
             <CategorySearch
               componentId="searchbox"
               // dataField={['titles', 'artists']}
-              dataField={searchDataField}
+              dataField={searchDataFieldDict[this.state.FilterBy]}
               categoryField="titles.raw"
               placeholder="Search for music"
               style={{ padding: "5px", marginTop: "100px" }}
