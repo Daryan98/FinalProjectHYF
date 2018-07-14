@@ -1,88 +1,102 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
-import { ReactiveBase, CategorySearch, RangeSlider, ResultCard, SingleDropdownList, SelectedFilters } from '@appbaseio/reactivesearch'
+import {
+  ReactiveBase,
+  CategorySearch,
+  RangeSlider,
+  ResultCard,
+  SingleDropdownList,
+  SelectedFilters
+} from "@appbaseio/reactivesearch";
 
-import Radio_search from "./components/search_radio_form"
+import Radio_search from "./components/search_radio_form";
 
-
-
-
-import './index.css'
+import "./index.css";
 
 class App extends Component {
-  render () {
-    return (
+  state = {
+    FilterBy: "all"
+  };
 
+  handleChange = event => {
+    this.setState({
+      FilterBy: event.target.value
+    });
+  };
+
+  render() {
+    // console.log({FilterBy: this.state.FilterBy});
+    const searchDataField =
+      this.state.FilterBy === "all"
+        ? ["titles", "artists", "publishedYear"]
+        : [this.state.FilterBy];
+
+    return (
       // add and remove and create playlist
 
-
-      <ReactiveBase app='bands' type='_doc' url='https://amp.a-magdy.me'>
-        <div className='row'>
-          <div className='col'>
-          </div>
+      <ReactiveBase app="bands" type="_doc" url="https://amp.a-magdy.me">
+        <div className="row">
+          <div className="col" />
           <div>
-
-            
-           
-
-
             <CategorySearch
-              componentId='searchbox'
-              dataField={['titles', 'artists']}
-              categoryField='titles.raw'
-              placeholder='Search for music'
-              style={{ padding: '5px', 'marginTop': '100px' }}
-              innerClass={{ input: 'text-input' }}
-              className='CategorySearch' />
+              componentId="searchbox"
+              // dataField={['titles', 'artists']}
+              dataField={searchDataField}
+              categoryField="titles.raw"
+              placeholder="Search for music"
+              style={{ padding: "5px", marginTop: "100px" }}
+              innerClass={{ input: "text-input" }}
+              className="CategorySearch"
+            />
 
-            <Radio_search />
-
-          
+            <Radio_search
+              handleChange={this.handleChange}
+              FilterBy={this.state.FilterBy}
+            />
           </div>
           <ResultCard
-            componentId='result'
-            dataField='titles'
-            title='Results'
+            componentId="result"
+            dataField="titles"
+            title="Results"
             from={0}
             size={4}
             pagination={true}
             pages={5}
-            react={{ and: ['searchbox', 'yearfilter'] }}
-            onData={(res) => {
-              console.log(res.publishedYear)
+            react={{ and: ["searchbox", "yearfilter"] }}
+            onData={res => {
+              console.log(res.publishedYear);
               return {
-                image: 'https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png',
+                image:
+                  "https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png",
 
-                title: 'Song Title: ' + res.titles,
+                title: "Song Title: " + res.titles,
                 description: (
-                <div>
-                  <p>
-                    {'Description: ' + res.artists + ' ' + '★'.repeat(res.location)}
-                  </p>
-                  <p>
-                    {'Pub Year: ' + res.publishedYear}
-                  </p>
-                
-                </div>
-            
+                  <div>
+                    <p>
+                      {"Description: " +
+                        res.artists +
+                        " " +
+                        "★".repeat(res.location)}
+                    </p>
+                    <p>{"Pub Year: " + res.publishedYear}</p>
+                  </div>
                 ),
-            
+
                 containerProps: {
-                  onMouseEnter: () => console.log('😁'),
-                  onMouseLeave: () => console.log('🙀')
+                  onMouseEnter: () => console.log("😁"),
+                  onMouseLeave: () => console.log("🙀")
                 }
-            
-            
-              }
+              };
             }}
-            innerClass={{ listItem: 'itemcontainer' }}
-            className='ResultCard'
-            style={{ 'textAlign': 'center' }} />
+            innerClass={{ listItem: "itemcontainer" }}
+            className="ResultCard"
+            style={{ textAlign: "center" }}
+          />
         </div>
       </ReactiveBase>
-    )
+    );
   }
 }
 
-export default App
+export default App;
