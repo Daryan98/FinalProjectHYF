@@ -1,14 +1,14 @@
 const data = require("../data/data.json");
-const dataStringify = JSON.stringify(data); 
 
 exports.seed = function(knex, Promise) {
-  return knex('category').del()
+  return knex('Artist').del()
     .then(function () {
-      return knex('category').insert([
-        {name: 'Webdesign', description: 'Web design (HTML/CSS)'},
-        {name: 'NodeJS', description: 'Backend programming using Node JS'},
-        {name: 'Database', description: 'Database design and optimization (MySQL)'},
-        {name: 'Architecture', description: 'System design' },
+
+      data.filter((item, i) => {
+      return knex('Artist').insert([
+          {id_artist: i, full_name: item.artist},
       ]);
     });
+  })
 };
+

@@ -1,13 +1,12 @@
 
 exports.up = function(knex, Promise) {
-   return knex.schema.createTable('category',
+   return knex.schema.createTable('Artist',
      function (t) {
-        t.increments('id').unsigned().primary();
-        t.string('name').notNull();
-        t.string('description').notNull();
+        t.increments('id_artist').unsigned().primary();
+        t.string('full_name').notNull();
     });  
 };
 
 exports.down = function(knex, Promise) {
-   return knex.dropTable('category'); 
+   return knex.dropTable('Artist'); 
 };

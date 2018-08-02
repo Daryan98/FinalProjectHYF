@@ -28,7 +28,7 @@ Edit the connection info in knexfile.js to the user you just created.
 
 ### updating the database using knex  #
 
--  knex migrate:latest
+- knex migrate:latest
 - knex seed:run
 
 
