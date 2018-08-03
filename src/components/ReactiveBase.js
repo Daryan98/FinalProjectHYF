@@ -10,6 +10,9 @@ import {
   } from "@appbaseio/reactivesearch";
   import Radio_search from "./search_radio_form";
 
+  import data from "../data/data.json";
+
+
   const searchDataFieldDict = {
     "all": ["artists", "titles", "publishedYear"],
     "publishedYear": ["publishedYear.search"],
@@ -19,24 +22,27 @@ import {
 
   class Reactive_Base extends Component {
     constructor(props){
-      super(props);
+    super(props)
+
     this.state = {
-      FilterBy: "all"
-    };
-  }
-  
-    handleChange = event => {
-      this.setState({
-        FilterBy: event.target.value
-      });
+      FilterBy: "",
+      artist: "default",
     };
 
+
+  }
+
+
+  
+
     render() {
+     
     return (
         <ReactiveBase app="bands" type="_doc" url="https://amp.a-magdy.me">
         <div className="row">
           <div className="col" />
           <div>
+
             <CategorySearch
               componentId="searchbox"
               // dataField={['titles', 'artists']}
@@ -69,21 +75,21 @@ import {
               className="dropdown">
             </SingleDropdownList>
           </div>
-          <Link to={`/song/`}>
+          <Link to={`/song/${this.state.artist != "default" ? this.state.artist : null}`}>              
           <ResultCard
             componentId="result"
             dataField="titles"
             title="Results"
             from={0}
-            size={4}
+            size={8}
             pagination={true}
             pages={5}
             react={{ and: ["searchbox", "yearfilter"] }}
             onData={res => {
-              console.log(res.publishedYear);
+
               return {
-                image:
-                  "https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png",
+                
+                image:"https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png",
 
                 title: "Song Title: " + res.titles,
                 description: (
@@ -99,11 +105,16 @@ import {
                 ),
 
                 containerProps: {
-                  onMouseEnter: () => console.log("😁"),
-                  onMouseLeave: () => console.log("🙀")
+                    onMouseEnter: () => { 
+                    let urlArtists = res.artists[0].replace(/\s+/g, '');
+                    this.setState({artist: urlArtists})
+                  }
                 }
-              };
-            }}
+              }
+          
+            }
+            }
+            
             innerClass={{ listItem: "itemcontainer" }}
             className="ResultCard"
             style={{ textAlign: "center" }}

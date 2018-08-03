@@ -1,8 +1,16 @@
 import React from "react";
 
-const Song = () => {
+const Song = (props) => {
     return(
-        <h1>Song</h1>
+        <div style={{
+            display: "block",
+            width: "100%",
+            height:"100vh"
+        }}>   
+            <h1>Song</h1>
+            {/* <p>data: {props}</p> */}
+        </div>
+        
     )
 }
 
