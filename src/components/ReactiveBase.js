@@ -8,7 +8,7 @@ import {
     SingleDropdownList,
     SelectedFilters
   } from "@appbaseio/reactivesearch";
-  import Radio_search from "./search_radio_form";
+  import Radio_search from "../components/search_radio_form";
 
   import data from "../data/data.json";
 
