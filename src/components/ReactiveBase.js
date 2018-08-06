@@ -52,6 +52,7 @@ import {
               placeholder="Search for music"
               innerClass={{ input: "text-input" }}
               className="CategorySearch"
+              
             />
 
             <Radio_search
