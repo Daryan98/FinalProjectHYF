@@ -9,40 +9,44 @@ let Band = [];
 
 data.filter((item, i) => {
    Record.push({
-    idRecord: i+1,
+    id_record: i*1,
     title: item.title,
     alternative_title: item.alternativeTitle,
     record_label: "",
     location: "",
   
   });
+
+  Artist.push({
+    id_Artist: i*4,
+    full_name: item.artist,
+  });
+  
+  Band.push({
+    id_Band: i*3,
+    name: item.band,
+  })
+
+  
+  Band_has_artist.push({
+    Band_idBand: Band[i].id_Band,
+    Artist_idArtist: Artist[i].id_Artist,
+  });
+
    Song.push({
-     idSong: i+1, 
+     idSong: i*2, 
      title: item.title,
      physical_medium: item.physical,
      language: "",
      songcol: "" ,
-    //  Record_idRecord: Record.map(item => item.idRecord),
-    //  Band_has_artist_band_idBand: i+1,
-    //  Band_has_artist_band_idArtist: i+1,
+     Record_idRecord: Record[i].id_record,
+     Band_has_artist_band_id_band: Band_has_artist[i].Band_idBand,
+     Band_has_artist_artist_id_artist: Band_has_artist[i].Artist_idArtist,
      year: item.year,
      genre: "",
     });
     
-    // Band_has_artist.push({
-    //   Band_idBand: i+1,
-    //   Artist_idArtist: i+1,
-    // });
 
-    Artist.push({
-      id_Artist: i+1,
-      full_name: item.artist,
-    });
-    
-    Band.push({
-      id_Band: i+1,
-      name: item.band,
-    })
 });
 
  exports.seed = async function(knex, Promise) {
@@ -54,10 +58,10 @@ data.filter((item, i) => {
     .then(function () {
       return knex('Song').insert(Song);
   })
-  // await knex('Band_has_artist').del()
-  //   .then(function () {
-  //     return knex('Band_has_artist').insert(Band_has_artist);
-  // })
+  await knex('Band_has_artist').del()
+    .then(function () {
+      return knex('Band_has_artist').insert(Band_has_artist);
+  })
   await knex('Artist').del()
     .then(function () {
       return knex('Artist').insert(Artist);

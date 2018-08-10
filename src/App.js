@@ -18,15 +18,12 @@ class App extends Component {
     this.OpenSong = this.OpenSong.bind(this)
   }
   routeRender() {
-    //when i exported the app i impoted (withRouter) method and also exported it so i can easellu use location.pathname, this will automaticlly give me the path name for where i am
     // if (this.props.location.pathname == '/') {
       return <ReactiveBase></ReactiveBase>
-
     // }
-}
+  }
   OpenSong=(props) =>{
     let songObject = data.filter(item => item.title == props.match.params.title)[0];
-
     return <Song {...songObject}></Song>
 
   }

@@ -2,7 +2,7 @@
 exports.up = async function(knex, Promise) {
     await knex.schema.createTable('Record',
      function (t) {
-        t.increments('idRecord').unsigned().primary();
+        t.increments('id_record').unsigned().primary();
         t.string('title').notNull();
         t.string('alternative_title').notNull();
         t.string('record_label').notNull();
@@ -16,18 +16,24 @@ exports.up = async function(knex, Promise) {
         t.string("physical_medium").notNull();
         t.string("language").notNull();
         t.string("songcol").notNull();
+
+        t.foreign('Record_idRecord').references('Record.id_record');
+        t.foreign('Band_has_artist_band_id_band').references('Band_has_artist.Band_idBand');
+        t.foreign('Band_has_artist_artist_id_artist').references('Record.Artist_idArtist');
+
+
         // t.integer('Record_idRecord').unsigned().notNullable().references('idRecord').inTable('Record');
-        // t.integer('Band_has_artist_band_idBand').unsigned().notNullable().references('id_Record').inTable('Record');
-        // t.integer('Band_has_artist_band_idArtist').unsigned().notNullable().references('id_Artist').inTable('Record');
+        // t.integer('Band_has_artist_band_id_band').unsigned().notNullable().references('Band_idBand').inTable('Band_has_artist');
+        // t.integer('Band_has_artist_artist_id_artist').unsigned().notNullable().references('Artist_idArtist').inTable('Band_has_artist');
         t.string("year").notNull();
         t.string("genre").notNull();
     })
 
-    // await knex.schema.createTable('Band_has_artist',
-    //     function (t) {
-    //     t.integer('Band_idBand').unsigned().notNullable().references('id_Record').inTable('id_Band');
-    //     t.integer('Artist_idArtist').unsigned().notNullable().references('id_Artist').inTable('id_Artist')
-    // })
+    await knex.schema.createTable('Band_has_artist',
+        function (t) {
+        t.integer('Band_idBand').unsigned().notNullable().references('id_Band').inTable('Band');
+        t.integer('Artist_idArtist').unsigned().notNullable().references('id_Artist').inTable('Artist')
+    })
     await knex.schema.createTable('Artist',
         function (t) {
         t.increments("id_Artist").unsigned().primary();
@@ -44,7 +50,7 @@ exports.up = async function(knex, Promise) {
 exports.down = async function(knex, Promise) {
     await knex.dropTable('Record');
     await knex.dropTable('Song')
-    // await knex.dropTable('Band_has_artist');
+    await knex.dropTable('Band_has_artist');
     await knex.dropTable('Artist');
     await knex.dropTable('Band');
 };
