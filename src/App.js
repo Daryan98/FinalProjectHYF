@@ -18,22 +18,23 @@ class App extends Component {
     this.OpenSong = this.OpenSong.bind(this)
   }
   routeRender() {
-    // if (this.props.location.pathname == '/') {
+    if (this.props.location.pathname == '/') {
       return <ReactiveBase></ReactiveBase>
-    // }
+    }
   }
   OpenSong=(props) =>{
     let songObject = data.filter(item => item.title == props.match.params.title)[0];
     return <Song {...songObject}></Song>
 
   }
+
+
   render() {
     return (
       <div>
         {this.routeRender()}
         <Route path='/song/:title' render={this.OpenSong} />
-      </div>
-      
+      </div>      
     );
   }
 }

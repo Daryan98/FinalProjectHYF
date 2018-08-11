@@ -52,7 +52,6 @@ import {
               placeholder="Search for music"
               innerClass={{ input: "text-input" }}
               className="CategorySearch"
-              
             />
 
             <Radio_search
@@ -89,8 +88,8 @@ import {
 
               return {     
                 description: (
-                <Link to={`/song/${this.state.url_title != "default" ? this.state.url_title : null}`}>         
-                  <div>
+                <Link className="card_link" to={`/song/${this.state.url_title != "default" ? this.state.url_title : null}`}>         
+                  <div className="card_content">
                     <img width="100" src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png" />
                     <h2>{res.title}</h2>
                     <p>
@@ -99,7 +98,7 @@ import {
                         " " +
                         "★".repeat(res.location)}
                     </p>
-                    <p>{res.publishedYear}</p>
+                    <p>{res.year}</p>
                   </div>
               </Link>
 
@@ -132,6 +131,11 @@ import {
             margin: 0;
             box-sizing: border-box;
           }
+
+          .css-1pwe92q {
+            display: none;
+          }
+
           .CategorySearch {
             padding: 0;
             width: 400px;
@@ -143,6 +147,8 @@ import {
             margin-top: 40px;
             margin-left: 40%;
             transform: translateX(-50%);
+            display: block;
+            float: left;
 
           }
           .CategorySearch .css-1mnns6r {
@@ -182,12 +188,22 @@ import {
             height: 100%;
           }
 
+          .card_link{
+            text-decoration: none;
+          }
+
           .ResultCard{
             display: block;
             width: 100%;
             float: left;
             margin-top: 40px;
+            margin-bottom: 100px;
           }
+
+          .card_content{
+            color: #010101;
+          }
+
           .ResultCard .css-yjv3eo p{
             text-align: left;
             margin-left: 30px;
@@ -202,6 +218,7 @@ import {
             width: 80%;
             height: 140px;
             margin-left: 10%; 
+            display: none;
           }
           .ResultCard .itemcontainer{
             border: 0;
