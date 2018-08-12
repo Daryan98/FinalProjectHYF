@@ -12,10 +12,10 @@ import Radio_search from "./components/search_radio_form";
 import "./index.css";
 
 const searchDataFieldDict = {
-  "all": ["artists", "titles", "publishedYear"],
-  "publishedYear": ["publishedYear.search"],
-  "artists": ["artists"],
-  "titles": ["titles"]
+  "all": ["artist", "title", "year"],
+  "year": ["year.search"],
+  "artist": ["artist"],
+  "title": ["title"]
 }
 
 class App extends Component {
@@ -33,7 +33,7 @@ class App extends Component {
     // console.log({FilterBy: this.state.FilterBy});
     // const searchDataField =
     //   this.state.FilterBy === "all"
-    //     ? ["titles", "artists", "publishedYear"]
+    //     ? ["title", "artist", "year"]
     //     : [this.state.FilterBy];
 
     return (
@@ -45,9 +45,9 @@ class App extends Component {
           <div>
             <CategorySearch
               componentId="searchbox"
-              // dataField={['titles', 'artists']}
+              // dataField={['title', 'artist']}
               dataField={searchDataFieldDict[this.state.FilterBy]}
-              categoryField="titles.raw"
+              categoryField="title.raw"
               placeholder="Search for music"
               style={{ padding: "5px", marginTop: "100px" }}
               innerClass={{ input: "text-input" }}
@@ -61,7 +61,7 @@ class App extends Component {
           </div>
           <ResultCard
             componentId="result"
-            dataField="titles"
+            dataField="title"
             title="Results"
             from={0}
             size={4}
@@ -69,21 +69,21 @@ class App extends Component {
             pages={5}
             react={{ and: ["searchbox", "yearfilter"] }}
             onData={res => {
-              console.log(res.publishedYear);
+              console.log(res.year);
               return {
                 image:
                   "https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png",
 
-                title: "Song Title: " + res.titles,
+                title: "Song Title: " + res.title,
                 description: (
                   <div>
                     <p>
                       {"Description: " +
-                        res.artists +
+                        res.artist +
                         " " +
                         "★".repeat(res.location)}
                     </p>
-                    <p>{"Pub Year: " + res.publishedYear}</p>
+                    <p>{"Pub Year: " + res.year}</p>
                   </div>
                 ),
 

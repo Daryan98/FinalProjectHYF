@@ -45,10 +45,10 @@ class RadioSearch extends Component {
               <label>
                 <input
                   type="radio"
-                  value="titles"
+                  value="title"
                   // checked={this.state.FilterBy === "title"}
                   // onChange={this.handleChange}
-                  checked={this.props.FilterBy === "titles"}
+                  checked={this.props.FilterBy === "title"}
                   onChange={this.props.handleChange}
                 />
                 <span>Title</span>
@@ -59,10 +59,10 @@ class RadioSearch extends Component {
               <label>
                 <input
                   type="radio"
-                  value="artists"
+                  value="artist"
                   // checked={this.state.FilterBy === "artist"}
                   // onChange={this.handleChange}
-                  checked={this.props.FilterBy === "artists"}
+                  checked={this.props.FilterBy === "artist"}
                   onChange={this.props.handleChange}
                 />
                 <span>Artist</span>
@@ -72,10 +72,10 @@ class RadioSearch extends Component {
               <label>
                 <input
                   type="radio"
-                  value="publishedYear"
+                  value="year"
                   // checked={this.state.FilterBy === "year"}
                   // onChange={this.handleChange}
-                  checked={this.props.FilterBy === "publishedYear"}
+                  checked={this.props.FilterBy === "year"}
                   onChange={this.props.handleChange}
                 />
                 <span>Year</span>
