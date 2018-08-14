@@ -28,6 +28,7 @@ Edit the connection info in knexfile.js to the user you just created.
 
 ### updating the database using knex  #
 
+- knex migrate:rollback  // removing data in mysql
 - knex migrate:latest
 - knex seed:run
 
