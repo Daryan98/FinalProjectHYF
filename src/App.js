@@ -1,40 +1,39 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter } from "react-router-dom";
 import ReactiveBase from "./components/ReactiveBase";
 import Song from "./components/song";
 import "./index.css";
 
 import data from "./data/data.json";
 
-
-
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      artistArray: [],
+      artistArray: []
     };
-    this.OpenSong = this.OpenSong.bind(this)
+    this.OpenSong = this.OpenSong.bind(this);
   }
   routeRender() {
-    if (this.props.location.pathname == '/') {
-      return <ReactiveBase></ReactiveBase>
+    if (this.props.location.pathname == "/") {
+      return <ReactiveBase />;
     }
   }
-  OpenSong=(props) =>{
-    let songObject = data.filter(item => item.title == props.match.params.title)[0];
-    return <Song {...songObject}></Song>
-
-  }
-
+  OpenSong = props => {
+    let songObject = data.filter(
+      item => item.title == props.match.params.title
+    )[0];
+    return <Song {...songObject} />;
+  };
 
   render() {
     return (
       <div>
         {this.routeRender()}
-        <Route path='/song/:title' render={this.OpenSong} />
-      </div>      
+        <Route path="/song/:title" render={this.OpenSong} />
+        {/* {console.log(knex.select("title", "author", "year").from("books"))} */}
+      </div>
     );
   }
 }

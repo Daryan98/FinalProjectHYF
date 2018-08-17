@@ -1,55 +1,47 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
-    ReactiveBase,
-    CategorySearch,
-    RangeSlider,
-    ResultCard,
-    SingleDropdownList,
-    SelectedFilters
-  } from "@appbaseio/reactivesearch";
-  import Radio_search from "../components/search_radio_form";
+  ReactiveBase,
+  CategorySearch,
+  RangeSlider,
+  ResultCard,
+  SingleDropdownList,
+  SelectedFilters
+} from "@appbaseio/reactivesearch";
+import Radio_search from "../components/search_radio_form";
 
-  import data from "../data/data.json";
+const searchDataFieldDict = {
+  all: ["artist", "title", "year"],
+  year: ["year.search"],
+  artist: ["artist"],
+  title: ["title"]
+};
 
-
-  const searchDataFieldDict = {
-    "all": ["artists", "titles", "publishedYear"],
-    "publishedYear": ["publishedYear.search"],
-    "artists": ["artists"],
-    "titles": ["titles"]
-  }
-
-  class Reactive_Base extends Component {
-    constructor(props){
-    super(props)
+class Reactive_Base extends Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       FilterBy: "",
-      url_title: "default",
+      url_title: "default"
     };
-
-
   }
 
-
-  
-
-    render() {
+  render() {
     return (
-        <ReactiveBase app="bands" type="_doc" url="https://amp.a-magdy.me">
+      <ReactiveBase app="bands" type="_doc" url="https://amp.a-magdy.me">
         <div className="row">
           <div className="col" />
           <div>
             <div className="logo">
-              <img src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png"/>
+              <img src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png" />
             </div>
             <CategorySearch
               componentId="searchbox"
-              dataField={['titles', 'artists']}
-              dataField={searchDataFieldDict[this.state.FilterBy]}
-              categoryField="titles.raw"
-              placeholder="Search for music"
+              dataField={["title", "artist"]}
+              // dataField={searchDataFieldDict[this.state.FilterBy]}
+              categoryField="title.raw"
+              placeholder="Search for bands"
               innerClass={{ input: "text-input" }}
               className="CategorySearch"
             />
@@ -85,41 +77,40 @@ import {
             pages={5}
             react={{ and: ["searchbox", "yearfilter"] }}
             onData={res => {
-
-              return {     
+              return {
                 description: (
-                <Link className="card_link" to={`/song/${this.state.url_title != "default" ? this.state.url_title : null}`}>         
-                  <div className="card_content">
-                    <img width="100" src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png" />
-                    <h2>{res.title}</h2>
-                    <p>
-                      {
-                        res.artist +
-                        " " +
-                        "★".repeat(res.location)}
-                    </p>
-                    <p>{res.year}</p>
-                  </div>
-              </Link>
-
+                  <Link
+                    className="card_link"
+                    to={`/song/${
+                      this.state.url_title != "default"
+                        ? this.state.url_title
+                        : null
+                    }`}
+                  >
+                    <div className="card_content">
+                      <img
+                        width="100"
+                        src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png"
+                      />
+                      <h2>{res.title}</h2>
+                      <p>{res.artist + " " + "★".repeat(res.location)}</p>
+                      <p>{res.year}</p>
+                    </div>
+                  </Link>
                 ),
 
                 containerProps: {
-                    onMouseEnter: () => { 
+                  onMouseEnter: () => {
                     let urlTitle = res.title;
-                    this.setState({url_title: urlTitle})
-
+                    this.setState({ url_title: urlTitle });
                   },
-                  onclick: () => { 
+                  onclick: () => {
                     let urlTitle = res.title;
-                    this.setState({url_title: urlTitle})
+                    this.setState({ url_title: urlTitle });
                   }
                 }
-              }
-          
-            }
-            }
-            
+              };
+            }}
             innerClass={{ listItem: "itemcontainer" }}
             className="ResultCard"
             style={{ textAlign: "center" }}
@@ -133,6 +124,9 @@ import {
           }
 
           .css-1pwe92q {
+            display: none;
+          }
+          .css-14pyrcn {
             display: none;
           }
 
@@ -149,12 +143,11 @@ import {
             transform: translateX(-50%);
             display: block;
             float: left;
-
           }
           .CategorySearch .css-1mnns6r {
             margin-top: 12px;
           }
-          .CategorySearch .text-input{
+          .CategorySearch .text-input {
             margin-top: 0;
             height: 35px;
             width: 400px;
@@ -170,12 +163,11 @@ import {
           .CategorySearch .text-input:value {
             font-size: 14px;
           }
-          .CategorySearch .search-icon{
+          .CategorySearch .search-icon {
             height: 12px;
           }
 
-
-          .logo{
+          .logo {
             width: 55px;
             height: 55px;
             position: relative;
@@ -183,16 +175,16 @@ import {
             display: inline;
             float: left;
           }
-          .logo img{
+          .logo img {
             width: 100%;
             height: 100%;
           }
 
-          .card_link{
+          .card_link {
             text-decoration: none;
           }
 
-          .ResultCard{
+          .ResultCard {
             display: block;
             width: 100%;
             float: left;
@@ -200,16 +192,16 @@ import {
             margin-bottom: 100px;
           }
 
-          .card_content{
+          .card_content {
             color: #010101;
           }
 
-          .ResultCard .css-yjv3eo p{
+          .ResultCard .css-yjv3eo p {
             text-align: left;
             margin-left: 30px;
           }
 
-          .ResultCard .itemcontainer{
+          .ResultCard .itemcontainer {
             border: 0;
             width: 17%;
             position: relative;
@@ -217,43 +209,42 @@ import {
           .ResultCard .itemcontainer .css-g6qnsb {
             width: 80%;
             height: 140px;
-            margin-left: 10%; 
+            margin-left: 10%;
             display: none;
           }
-          .ResultCard .itemcontainer{
+          .ResultCard .itemcontainer {
             border: 0;
             max-width: 18%;
           }
-          .css-106d0ed{
-            width:auto;
-            -webkit-box-flex:1;
-            -webkit-flex-grow:1;
-            -ms-flex-positive:1;
-            flex-grow:1;
-            outline:none;
-            -webkit-text-decoration:none;
-            text-decoration:none;
-            min-width:18%;
-            max-width:22.5%;
-            border-radius:0.25rem;
-            background-color:#fff;
-            height:240px;
-            flex-direction:column;
-            justify-content:space-between;
-            margin:8px;
-            padding:10px;
-            overflow:hidden;
-            
-            // box-shadow: none;
-            box-shadow:0 0 4px 0 rgba(0,0,0,0.2);
-            color:#424242;
-            -webkit-transition:all 0.3s ease;
-            transition:all 0.3s ease;
-}
-        `}</style>
+          .css-106d0ed {
+            width: auto;
+            -webkit-box-flex: 1;
+            -webkit-flex-grow: 1;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            outline: none;
+            -webkit-text-decoration: none;
+            text-decoration: none;
+            min-width: 18%;
+            max-width: 22.5%;
+            border-radius: 0.25rem;
+            background-color: #fff;
+            height: 240px;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 8px;
+            padding: 10px;
+            overflow: hidden;
 
+            // box-shadow: none;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+            color: #424242;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+          }
+        `}</style>
       </ReactiveBase>
-    )
-}
+    );
+  }
 }
 export default Reactive_Base;

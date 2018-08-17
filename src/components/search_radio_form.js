@@ -13,7 +13,7 @@ class RadioSearch extends Component {
             <li>
               <label>
                 <input
-                  // checked
+                  checked
                   type="radio"
                   value="all"
                   checked={this.props.FilterBy === "all"}

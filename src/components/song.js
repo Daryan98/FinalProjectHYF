@@ -20,6 +20,8 @@ const Song = (props) => {
                         <i>add to playlist</i>
                     </div> */}
 
+                    <a href="/" className="goBack_btn"><span>Go back!</span></a>
+
                     <audio controls>
                         <source src="horse.ogg" type="audio/ogg"/>
                     </audio>
@@ -80,6 +82,20 @@ const Song = (props) => {
                     float: left;
                     margin-left: 150px;
                 }
+                .impo_information span {
+                    font-size: 15px;
+                    color: rgba(0, 0, 0, 0.70);
+                }
+                .more_information span {
+                    font-size: 12px;
+                    color: rgba(0, 0, 0, 0.70);
+
+                }
+
+                .goBack_btn {
+                    
+                }
+
                 @import 'https://fonts.googleapis.com/css?family=Lato';
 
 
