@@ -8,7 +8,7 @@ import {
   SingleDropdownList,
   SelectedFilters
 } from "@appbaseio/reactivesearch";
-import Radio_search from "../components/search_radio_form";
+import RadioSearch from "../components/search_radio_form";
 
 const searchDataFieldDict = {
   all: ["artist", "title", "year"],
@@ -25,14 +25,26 @@ class Reactive_Base extends Component {
       FilterBy: "",
       url_title: "default"
     };
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  handleChange = event => {
+    this.setState({
+      FilterBy: event.target.value
+    });
+  };
   render() {
     return (
       <ReactiveBase app="bands" type="_doc" url="https://amp.a-magdy.me">
         <div className="row">
           <div className="col" />
-          <div>
+          <div
+            className="navbar"
+            style={{
+              width: "100%",
+              height: "100px"
+            }}
+          >
             <div className="logo">
               <img src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png" />
             </div>
@@ -46,33 +58,50 @@ class Reactive_Base extends Component {
               className="CategorySearch"
             />
 
-            <Radio_search
+            <SingleDropdownList
+              componentId="MusicSensor"
+              dataField="year.raw"
+              title="PubYear"
+              size={100}
+              sortBy="asc"
+              defaultSelected="2000"
+              showCount={true}
+              placeholder="Search Music"
+              selectAllLabel="All Years"
+              react={{ and: ["searchbox"] }}
+              showFilter={true}
+              filterLabel="Year"
+              URLParams={false}
+              className="dropdown"
+            />
+            <RadioSearch
               handleChange={this.handleChange}
               FilterBy={this.state.FilterBy}
             />
-            {/* <SingleDropdownList
-              componentId='MusicSensor'
-              dataField='publishedYear.raw'
-              title='PubYear'
-              size={100}
-              sortBy='asc'
-              defaultSelected='2000'
-              showCount={true}
-              placeholder='Search Music'
-              selectAllLabel='All Years'
-              react={{ and: ['searchbox' ] }}
-              showFilter={true}
-              filterLabel='Year'
-              URLParams={false}
-              className="dropdown">
-            </SingleDropdownList> */}
+            <div className="clear-fix" />
+          </div>
+          <div
+            className="sections_name"
+            style={{
+              display: "block",
+              width: "100%",
+              height: "300px",
+              color: "#fff",
+              textAlign: "center",
+              lineHeight: "300px",
+              backgroundsize: "cover",
+              background:
+                "linear-gradient( to right bottom, rgba(50,109,233,0.9), rgba(126,82,232,0.9) ), url('https://images7.alphacoders.com/480/thumb-1920-480927.jpg'),no-repeat"
+            }}
+          >
+            <h1>All Songs</h1>
           </div>
           <ResultCard
             componentId="result"
             dataField="titles"
             title="Results"
             from={0}
-            size={10}
+            size={15}
             pagination={true}
             pages={5}
             react={{ and: ["searchbox", "yearfilter"] }}
@@ -115,6 +144,16 @@ class Reactive_Base extends Component {
             className="ResultCard"
             style={{ textAlign: "center" }}
           />
+          <div className="clear-fix" />
+          <div className="contact_btns">
+            <a className="playlist">
+              <span>All Playlists</span>
+            </a>
+            {/* <span className="middle">|</span> */}
+            <a className="contact">
+              <span>Contact</span>
+            </a>
+          </div>
         </div>
         <style jsx>{`
           * {
@@ -122,7 +161,12 @@ class Reactive_Base extends Component {
             margin: 0;
             box-sizing: border-box;
           }
-
+          .clear-fix {
+            clear: both;
+          }
+          .css-omf3o4 {
+            margin: 0 0;
+          }
           .css-1pwe92q {
             display: none;
           }
@@ -135,24 +179,24 @@ class Reactive_Base extends Component {
             width: 400px;
             height: 45px;
             line-height: 15px;
-            display: inline;
+            display: inline-block;
             float: left;
-            // position: absolute;
-            margin-top: 40px;
-            margin-left: 40%;
-            transform: translateX(-50%);
+            margin-top: 30px;
+            margin-bottom: 0;
+            margin-left: 150px;
             display: block;
             float: left;
           }
           .CategorySearch .css-1mnns6r {
-            margin-top: 12px;
+            margin-top: 25px;
           }
           .CategorySearch .text-input {
+            display: inline;
             margin-top: 0;
             height: 35px;
             width: 400px;
             border: 0;
-            background: #efefef;
+            background-color: #efefef;
             padding: 10px 35px;
             font-size: 14px;
           }
@@ -166,7 +210,9 @@ class Reactive_Base extends Component {
           .CategorySearch .search-icon {
             height: 12px;
           }
-
+          .css-c0lsh8 svg.search-icon {
+            fill: #467beb;
+          }
           .logo {
             width: 55px;
             height: 55px;
@@ -174,10 +220,28 @@ class Reactive_Base extends Component {
             margin-left: 20px;
             display: inline;
             float: left;
+            margin-top: 15px;
           }
           .logo img {
             width: 100%;
             height: 100%;
+          }
+
+          .dropdown {
+            display: inline;
+            float: left;
+            width: 150px;
+          }
+          .dropdown:hover .css-1bts2wl {
+            background-color: #efefef;
+          }
+
+          .css-1bts2wl {
+            margin-top: 25px;
+            min-height: 35px !important;
+            border-radius: 22px;
+            background-color: #efefef;
+            border: none;
           }
 
           .card_link {
@@ -190,6 +254,7 @@ class Reactive_Base extends Component {
             float: left;
             margin-top: 40px;
             margin-bottom: 100px;
+            z-index: -1;
           }
 
           .card_content {
@@ -241,6 +306,35 @@ class Reactive_Base extends Component {
             color: #424242;
             -webkit-transition: all 0.3s ease;
             transition: all 0.3s ease;
+          }
+
+          div.contact_btns {
+            position: absolute;
+            display: inline;
+            right: 50px;
+            top: 30px;
+            height: 35px;
+            padding: 0;
+            margin: 0;
+          }
+
+          div.contact_btns span.middle {
+            font-size: 20px;
+          }
+          div.contact_btns a {
+            padding: 5px 20px;
+            background: linear-gradient(
+              to right bottom,
+              rgba(50, 109, 233, 0.9),
+              rgba(126, 82, 232, 0.9)
+            );
+            color: #fff;
+            border-radius: 20px;
+            line-height: 35px;
+            margin: 0 20px;
+          }
+          div.contact_btns a:hover {
+            cursor: pointer;
           }
         `}</style>
       </ReactiveBase>

@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 
 class RadioSearch extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="radio_buttons">
@@ -68,24 +64,22 @@ class RadioSearch extends Component {
             box-sizing: border-box;
           }
 
-
           .radio_buttons {
-            display: inline; float:left;
-            margin-top: 19px;
-            margin-left: -180px;
-
+            display: inline;
+            float: left;
+            margin-top: 30px;
+            margin-left: 40px;
           }
           .radio_buttons li {
             list-style: none;
-            display: inline; float: left;
+            display: inline;
+            float: left;
             margin-right: 10px;
           }
           .radio_buttons li span {
             font-size: 12px;
-         
+            margin-left: 4px;
           }
-        
-          
         `}</style>
       </div>
     );

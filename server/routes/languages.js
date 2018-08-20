@@ -5,7 +5,7 @@ var knex = require("../helpers/knex");
 
 /* GET category listing. */
 router.get("/", function(req, res, next) {
-  knex("Song")
+  knex("Language")
     .select()
     .then(function(data) {
       res.send(data);

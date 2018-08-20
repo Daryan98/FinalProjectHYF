@@ -1,9 +1,15 @@
 var express = require("express");
 var router = express.Router();
 
-// Home page route.
-router.get("/", function(req, res) {
-  res.send("Wiki home page");
+var knex = require("../helpers/knex");
+
+/* GET category listing. */
+router.get("/", function(req, res, next) {
+  knex("Record")
+    .select()
+    .then(function(data) {
+      res.send(data);
+    });
 });
 
 module.exports = router;

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import ReactDOM from "react-dom";
 import { Route, withRouter } from "react-router-dom";
 import ReactiveBase from "./components/ReactiveBase";
@@ -6,6 +7,11 @@ import Song from "./components/song";
 import "./index.css";
 
 import data from "./data/data.json";
+
+import AllPlaylists from "./components/all_playLists";
+// import PLayList from "./components/all_playLists";
+
+import Footer from "./components/footer";
 
 class App extends Component {
   constructor() {
@@ -15,9 +21,14 @@ class App extends Component {
     };
     this.OpenSong = this.OpenSong.bind(this);
   }
+
   routeRender() {
     if (this.props.location.pathname == "/") {
       return <ReactiveBase />;
+    }
+
+    if (this.props.location.pathname == "/allplaylist") {
+      return <AllPlaylists />;
     }
   }
   OpenSong = props => {
@@ -32,7 +43,7 @@ class App extends Component {
       <div>
         {this.routeRender()}
         <Route path="/song/:title" render={this.OpenSong} />
-        {/* {console.log(knex.select("title", "author", "year").from("books"))} */}
+        <Footer />
       </div>
     );
   }
