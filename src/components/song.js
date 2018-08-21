@@ -1,6 +1,4 @@
-import React from "react";
-import ReactAudioPlayer from "react-audio-player";
-//...
+import React from "react"; //...
 
 const Song = props => {
   return (
