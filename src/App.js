@@ -1,106 +1,52 @@
 import React, { Component } from "react";
+import axios from "axios";
 import ReactDOM from "react-dom";
-import {
-  ReactiveBase,
-  CategorySearch,
-  RangeSlider,
-  ResultCard,
-  SingleDropdownList,
-  SelectedFilters
-} from "@appbaseio/reactivesearch";
-import Radio_search from "./components/search_radio_form";
+import { Route, withRouter } from "react-router-dom";
+import ReactiveBase from "./components/ReactiveBase";
+import Song from "./components/song";
 import "./index.css";
 
-const searchDataFieldDict = {
-  "all": ["artists", "titles", "publishedYear"],
-  "publishedYear": ["publishedYear.search"],
-  "artists": ["artists"],
-  "titles": ["titles"]
-}
+import data from "./data/data.json";
+
+import AllPlaylists from "./components/all_playLists";
+// import PLayList from "./components/all_playLists";
+
+import Footer from "./components/footer";
 
 class App extends Component {
-  state = {
-    FilterBy: "all"
-  };
+  constructor() {
+    super();
+    this.state = {
+      artistArray: []
+    };
+    this.OpenSong = this.OpenSong.bind(this);
+  }
 
-  handleChange = event => {
-    this.setState({
-      FilterBy: event.target.value
-    });
+  routeRender() {
+    if (this.props.location.pathname == "/") {
+      return <ReactiveBase />;
+    }
+
+    if (this.props.location.pathname == "/allplaylist") {
+      return <AllPlaylists />;
+    }
+  }
+  OpenSong = props => {
+    let songObject = data.filter(
+      item => item.title == props.match.params.title
+    )[0];
+    return <Song {...songObject} />;
   };
 
   render() {
-    // console.log({FilterBy: this.state.FilterBy});
-    // const searchDataField =
-    //   this.state.FilterBy === "all"
-    //     ? ["titles", "artists", "publishedYear"]
-    //     : [this.state.FilterBy];
-
     return (
-      // add and remove and create playlist
-
-      <ReactiveBase app="bands" type="_doc" url="https://amp.a-magdy.me">
-        <div className="row">
-          <div className="col" />
-          <div>
-            <CategorySearch
-              componentId="searchbox"
-              // dataField={['titles', 'artists']}
-              dataField={searchDataFieldDict[this.state.FilterBy]}
-              categoryField="titles.raw"
-              placeholder="Search for music"
-              style={{ padding: "5px", marginTop: "100px" }}
-              innerClass={{ input: "text-input" }}
-              className="CategorySearch"
-            />
-
-            <Radio_search
-              handleChange={this.handleChange}
-              FilterBy={this.state.FilterBy}
-            />
-          </div>
-          <ResultCard
-            componentId="result"
-            dataField="titles"
-            title="Results"
-            from={0}
-            size={4}
-            pagination={true}
-            pages={5}
-            react={{ and: ["searchbox", "yearfilter"] }}
-            onData={res => {
-              console.log(res.publishedYear);
-              return {
-                image:
-                  "https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png",
-
-                title: "Song Title: " + res.titles,
-                description: (
-                  <div>
-                    <p>
-                      {"Description: " +
-                        res.artists +
-                        " " +
-                        "★".repeat(res.location)}
-                    </p>
-                    <p>{"Pub Year: " + res.publishedYear}</p>
-                  </div>
-                ),
-
-                containerProps: {
-                  onMouseEnter: () => console.log("😁"),
-                  onMouseLeave: () => console.log("🙀")
-                }
-              };
-            }}
-            innerClass={{ listItem: "itemcontainer" }}
-            className="ResultCard"
-            style={{ textAlign: "center" }}
-          />
-        </div>
-      </ReactiveBase>
+      <div>
+        {this.routeRender()}
+        <Route path="/song/:title" render={this.OpenSong} />
+        <Footer />
+      </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
