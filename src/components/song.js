@@ -71,7 +71,7 @@ const Song = props => {
         .audio {
           width: 100%;
           height: 80px;
-          background: #efefef;
+          background: #f1f3f4;
           position: absolute;
           bottom: 0;
         }

@@ -20,12 +20,12 @@ data.forEach((item, i) => {
       id_Song: Song.length + 1,
       title: songTitle,
       physical_medium: item.physical,
-      language: "" || "unkown",
+      language: item.language[0] || "unknown",
       Record_idRecord: Record[i].id_Record,
       year: item.year,
-      genre: "" || "unkown",
-      audio_sample_path: "" || "unkown",
-      band_name: "" || "unkown"
+      genre: "" || "unknown",
+      audio_sample_path: "" || "unknown",
+      band_name: "" || "unknown"
     });
   });
 

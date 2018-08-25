@@ -146,13 +146,10 @@ class Reactive_Base extends Component {
           />
           <div className="clear-fix" />
           <div className="contact_btns">
-            <a className="playlist">
+            <a href="/allplaylist" className="playlist">
               <span>All Playlists</span>
             </a>
             {/* <span className="middle">|</span> */}
-            <a className="contact">
-              <span>Contact</span>
-            </a>
           </div>
         </div>
         <style jsx>{`
@@ -322,7 +319,8 @@ class Reactive_Base extends Component {
             font-size: 20px;
           }
           div.contact_btns a {
-            padding: 5px 20px;
+            padding: 5px 30px 8px;
+
             background: linear-gradient(
               to right bottom,
               rgba(50, 109, 233, 0.9),
@@ -332,6 +330,7 @@ class Reactive_Base extends Component {
             border-radius: 20px;
             line-height: 35px;
             margin: 0 20px;
+            text-decoration: none;
           }
           div.contact_btns a:hover {
             cursor: pointer;

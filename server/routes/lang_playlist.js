@@ -4,56 +4,34 @@ var router = express.Router();
 var knex = require("../helpers/knex");
 
 /* GET category listing. */
-router.get("/", function(req, res) {
-  // knex("Record_languages")
-  //   .select()
-  //   .then(function(data) {
-  //     knex
-  //       .from("Language")
-  //       .innerJoin("accounts", "Record.id_Record", "accounts.user_id");
-  //   });
-  // console.log("test");
-  // knex
-  //   .select()
-  //   .from("Language as lng")
-  //   .innerJoin("Record as rec", "rec.id_Record", "lng.id_Language")
-  //   .select("rec.id_Record", "lng.id_Language")
-  //   .then(d => {
-  //     console.log(d);
-  //   });
+router.get("/", async function(req, res) {
+  let data;
+  let jsonResult = new Object();
+  let languages_table = await knex("Language");
+  let records_table = await knex("Record");
+  let langs_records = await knex("Record_languages").distinct(
+    "Language_idLanguage"
+  );
 
-  knex.schema
-    .createTableIfNotExists("testAgg", t => {
-      t.string("Record_idRecord");
-      t.string("Language_idLanguage");
-    })
-    .then(d => {
-      console.log(d);
+  for (let i = 0; i < langs_records.length; i++) {
+    const lang = langs_records[i];
+    let records = await knex({ rl: "Record_languages" })
+      .select("Record_idRecord")
+      .where({ "rl.Language_idLanguage": lang.Language_idLanguage });
+    let language = languages_table.filter(
+      l => l.id_Language == lang.Language_idLanguage
+    )[0];
+
+    let record_ids = [];
+    records.forEach(rec => {
+      record_ids.push(rec.Record_idRecord);
     });
 
-  knex
-    .select()
-    .from("Record_languages as lng")
-    .innerJoin(
-      "Record_languages as rec",
-      "rec.Language_idLanguage",
-      "lng.Language_idLanguage"
-    )
-    .select()
-    .then(d => {
-      d.forEach(element => {
-        console.log(element);
-        // knex("testAgg")
-        // .insert({
-        //   Record_idRecord: element.Record_idRecord,
-        //   Language_idLanguage: element.Language_idLanguage
-        // })
-        // .then(e => console.log(e))
-        // .catch(e => console.log(e));
-      });
-    });
+    let record = records_table.filter(r => record_ids.includes(r.id_Record));
+    jsonResult[language.language_name] = record;
+  }
 
-  res.send("finished");
+  res.send(jsonResult);
 });
 
 module.exports = router;
