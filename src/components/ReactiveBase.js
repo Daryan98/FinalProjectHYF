@@ -3,16 +3,13 @@ import { Link } from "react-router-dom";
 import {
   ReactiveBase,
   CategorySearch,
-  RangeSlider,
   ResultCard,
-  SingleDropdownList,
-  SelectedFilters
+  SingleDropdownList
 } from "@appbaseio/reactivesearch";
 import RadioSearch from "../components/search_radio_form";
 
 const searchDataFieldDict = {
-  all: ["artist", "title", "year"],
-  year: ["year.search"],
+  all: ["artist", "title"],
   artist: ["artist"],
   title: ["title"]
 };
@@ -22,7 +19,7 @@ class Reactive_Base extends Component {
     super(props);
 
     this.state = {
-      FilterBy: "",
+      FilterBy: "all",
       url_title: "default"
     };
     this.handleChange = this.handleChange.bind(this);
@@ -50,8 +47,8 @@ class Reactive_Base extends Component {
             </div>
             <CategorySearch
               componentId="searchbox"
-              dataField={["title", "artist"]}
-              // dataField={searchDataFieldDict[this.state.FilterBy]}
+              // dataField={["title", "artist"]}
+              dataField={searchDataFieldDict[this.state.FilterBy]}
               categoryField="title.raw"
               placeholder="Search for bands"
               innerClass={{ input: "text-input" }}
@@ -59,12 +56,12 @@ class Reactive_Base extends Component {
             />
 
             <SingleDropdownList
-              componentId="MusicSensor"
+              componentId="yearfilter"
               dataField="year.raw"
               title="PubYear"
               size={100}
               sortBy="asc"
-              defaultSelected="2000"
+              defaultSelected="All Years"
               showCount={true}
               placeholder="Search Music"
               selectAllLabel="All Years"
@@ -74,6 +71,7 @@ class Reactive_Base extends Component {
               URLParams={false}
               className="dropdown"
             />
+            {console.log(searchDataFieldDict[this.state.FilterBy])}
             <RadioSearch
               handleChange={this.handleChange}
               FilterBy={this.state.FilterBy}
@@ -334,6 +332,9 @@ class Reactive_Base extends Component {
           }
           div.contact_btns a:hover {
             cursor: pointer;
+          }
+          .css-11s5mbb {
+            margin-top: 50px;
           }
         `}</style>
       </ReactiveBase>

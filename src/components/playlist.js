@@ -12,9 +12,10 @@ class PLayList extends React.Component {
     this.state = {
       playlist: "none",
       SongData: [],
-      active: "notActive"
+      activeItem: -1,
+      song: ""
     };
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -32,9 +33,9 @@ class PLayList extends React.Component {
       });
   }
 
-  handleClick() {
+  handleClick(index) {
     this.setState({
-      active: "active"
+      activeItem: index
     });
   }
   render() {
@@ -45,7 +46,7 @@ class PLayList extends React.Component {
             width="100"
             src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png"
           />
-          <h2>PlayLIst Name</h2>
+          <h2>{this.props.location.language} Playlist</h2>
         </div>
 
         <div className="allsongs">
@@ -56,18 +57,24 @@ class PLayList extends React.Component {
           </div>
 
           {console.log(this.state.SongData[0])}
-          {this.state.SongData.map((song, i) => {
+          {this.state.SongData.map((song, index) => {
             return (
               <div className="song">
-                <span className="number">{i + 1}</span>
+                <span className="number">{index + 1}</span>
                 <h3
-                  onClick={this.handleClick}
-                  className={
-                    this.state.active === "active" ? "active" : "notActive"
-                  }
+                  key={index}
+                  className={this.state.activeItem === index ? "active" : ""}
+                  onClick={this.handleClick.bind(this, index)}
                 >
-                  {" "}
-                  <Icon className="icon" icon={play2} /> {song.title}
+                  <Icon
+                    key={index}
+                    className={
+                      this.state.activeItem === index ? "icon active" : "icon"
+                    }
+                    onClick={this.handleClick.bind(this, index)}
+                    icon={play2}
+                  />{" "}
+                  {song.title}
                 </h3>
                 <span className="year">{song.year}</span>
               </div>
@@ -157,12 +164,21 @@ class PLayList extends React.Component {
             font-size: 16px;
           }
 
-          .allsongs .song .notActive {
-            color: #333;
+          .allsongs .song h3.active {
+            color: rgba(50, 109, 233, 1);
           }
 
-          .allsongs .song .active {
-            color: blue;
+          .allsongs .song h3 .icon {
+            opacity: 0;
+            transition: all 0.3s;
+          }
+          .allsongs .song h3:hover .icon {
+            opacity: 1;
+            transition: all 0.3s;
+          }
+          .allsongs .song h3 .icon.active {
+            opacity: 1;
+            color: rgba(50, 109, 233, 1);
           }
 
           .allsongs .song .year {

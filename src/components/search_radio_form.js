@@ -23,8 +23,8 @@ class RadioSearch extends Component {
               <label>
                 <input
                   type="radio"
-                  value="titles"
-                  checked={this.props.FilterBy === "titles"}
+                  value="title"
+                  checked={this.props.FilterBy === "title"}
                   onChange={this.props.handleChange}
                 />
                 <span>Title</span>
@@ -35,8 +35,8 @@ class RadioSearch extends Component {
               <label>
                 <input
                   type="radio"
-                  value="artists"
-                  checked={this.props.FilterBy === "artists"}
+                  value="artist"
+                  checked={this.props.FilterBy === "artist"}
                   onChange={this.props.handleChange}
                 />
                 <span>Artist</span>

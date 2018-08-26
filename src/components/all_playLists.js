@@ -85,6 +85,10 @@ class PLayList extends React.Component {
           </div>
         </div>
         <style jsx>{`
+          * {
+            margin: 0;
+            padding: 0;
+          }
           .Play_List_section {
             width: 100%;
 
@@ -116,7 +120,7 @@ class PLayList extends React.Component {
             // box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
             text-align: center;
             height: 220px;
-            margin-top: 10px;
+            margin-top: 0px;
           }
 
           .allplayLists .playList img {
@@ -126,7 +130,7 @@ class PLayList extends React.Component {
           }
           .allplayLists .playList h2 {
             font-size: 15px;
-            margin-left: 20px;
+            margin-top: 20px;
           }
         `}</style>
       </div>
