@@ -11,8 +11,6 @@ import data from "./data/data.json";
 import AllPlaylists from "./components/all_playLists";
 import PLayList from "./components/playlist";
 
-import Footer from "./components/footer";
-
 class App extends Component {
   constructor() {
     super();
@@ -54,7 +52,6 @@ class App extends Component {
         {this.routeRender()}
         <Route path="/song/:title" render={this.OpenSong} />
         <Route path="/allplaylist/playlist/:playlist" render={this.PLaylist} />
-        <Footer />
       </div>
     );
   }

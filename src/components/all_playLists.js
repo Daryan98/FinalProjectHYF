@@ -2,8 +2,6 @@ import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import Playlist from "../components/playlist";
-
 class PLayList extends React.Component {
   constructor() {
     super();
@@ -59,6 +57,10 @@ class PLayList extends React.Component {
         >
           <h1>All Playlists</h1>
         </div>
+        <a href="/" className="goBack_btn">
+          <span>&#171; </span>
+          Go back!
+        </a>
         <div className="language_playlists">
           <h1>Language Playlists</h1>
           <div className="allplayLists">
@@ -91,7 +93,6 @@ class PLayList extends React.Component {
           }
           .Play_List_section {
             width: 100%;
-
             position: relative;
           }
           .Play_List_section .language_playlists {
@@ -131,6 +132,30 @@ class PLayList extends React.Component {
           .allplayLists .playList h2 {
             font-size: 15px;
             margin-top: 20px;
+          }
+          a.goBack_btn {
+            margin-top: 10px;
+            height: 30px !important;
+            width: 100px !important;
+
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            line-heigh: 0 !important;
+          }
+          a.goBack_btn span {
+            display: inline;
+            font-size: 20px;
+            margin-right: -10px;
+            opacity: 0;
+            transition: all 0.2s;
+          }
+          a.goBack_btn:hover span {
+            margin-right: 0px;
+            opacity: 1;
           }
         `}</style>
       </div>

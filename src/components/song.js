@@ -1,8 +1,40 @@
 import React from "react"; //...
+import ReactJkMusicPlayer from "react-jinke-music-player";
+import "react-jinke-music-player/assets/index.css";
 
 class Song extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      options: {
+        audioLists: [
+          {
+            name: this.props.title,
+            singer: this.props.artist,
+            cover: "https://www.lijinke.cn/music/1387583682387727.jpg",
+            musicSrc: "http://www.nihilus.net/soundtracks/Static%20Memories.mp3"
+          }
+        ],
+        name: "Canon (piano version)",
+        defaultPlayIndex: 0,
+        volume: 100,
+        muted: false,
+        networkState: 1,
+        readyState: 4,
+        paused: false,
+        ended: false,
+        preload: "true",
+        openText: "Play",
+        closeText: "pause",
+        panelTitle: "Song",
+        toggleMode: false,
+        mode: "full",
+        autoPlay: true,
+        startDate: null,
+        defaultPosition: { top: 20, left: 400 },
+        played: { length: 1 }
+      }
+    };
   }
   render() {
     return (
@@ -28,25 +60,19 @@ class Song extends React.Component {
             <h4>{this.props.title}</h4>
             <span>{this.props.artist}</span>
             <span className="year">{this.props.year}</span>
-            <div className="buttons">
-              <a>Play</a>
-            </div>
           </div>
-          <div className="audio">
-            <audio controls>
+
+          <ReactJkMusicPlayer {...this.state.options} />
+          {/* <audio controls {...this.state.play}>
               <source
                 src="http://www.nihilus.net/soundtracks/Static%20Memories.mp3"
                 type="audio/mp3"
               />
-            </audio>
-          </div>
+            </audio> */}
         </div>
         <div className="clear-fix" />
 
         <style jsx>{`
-          * {
-            margin-bottom: 10px;
-          }
           .clear-fix {
             clear: both;
           }
@@ -80,14 +106,6 @@ class Song extends React.Component {
             bottom: 0;
           }
 
-          audio {
-            position: absolute;
-            top: 10px;
-            display: flex;
-            border-radius: 0;
-            width: 90%;
-            left: 5%;
-          }
           .impo_information {
             display: inline-block;
             margin-left: 150px;
@@ -152,6 +170,24 @@ class Song extends React.Component {
             opacity: 1;
           }
 
+          .react-jinke-music-player {
+            width: 60px !important;
+            height: 60px !important;
+            position: relative;
+          }
+          .react-jinke-music-player .music-player {
+            width: 100% !important;
+            height: 100% !important;
+          }
+          .react-jinke-music-player .music-player-controller {
+            width: 100% !important;
+            height: 100% !important;
+          }
+
+          .react-jinke-music-player-main .music-player-panel {
+            bottom: 0px;
+            position: fixed;
+          }
           @import "https://fonts.googleapis.com/css?family=Lato";
         `}</style>
       </div>

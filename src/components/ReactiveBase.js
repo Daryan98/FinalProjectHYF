@@ -7,6 +7,7 @@ import {
   SingleDropdownList
 } from "@appbaseio/reactivesearch";
 import RadioSearch from "../components/search_radio_form";
+import Footer from "../components/footer";
 
 const searchDataFieldDict = {
   all: ["artist", "title"],
@@ -32,124 +33,127 @@ class Reactive_Base extends Component {
   };
   render() {
     return (
-      <ReactiveBase app="bands" type="_doc" url="https://amp.a-magdy.me">
-        <div className="row">
-          <div className="col" />
-          <div
-            className="navbar"
-            style={{
-              width: "100%",
-              height: "100px"
-            }}
-          >
-            <div className="logo">
-              <img src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png" />
-            </div>
-            <CategorySearch
-              componentId="searchbox"
-              // dataField={["title", "artist"]}
-              dataField={searchDataFieldDict[this.state.FilterBy]}
-              categoryField="title.raw"
-              placeholder="Search for bands"
-              innerClass={{ input: "text-input" }}
-              className="CategorySearch"
-            />
+      <div>
+        <ReactiveBase app="bands" type="_doc" url="https://amp.a-magdy.me">
+          <div className="row">
+            <div className="col" />
+            <div
+              className="navbar"
+              style={{
+                width: "100%",
+                height: "100px"
+              }}
+            >
+              <div className="logo">
+                <img src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png" />
+              </div>
+              <CategorySearch
+                componentId="searchbox"
+                // dataField={["title", "artist"]}
+                dataField={searchDataFieldDict[this.state.FilterBy]}
+                categoryField="title.raw"
+                placeholder="Search for bands"
+                innerClass={{ input: "text-input" }}
+                className="CategorySearch"
+              />
 
-            <SingleDropdownList
-              componentId="yearfilter"
-              dataField="year.raw"
-              title="PubYear"
-              size={100}
-              sortBy="asc"
-              defaultSelected="All Years"
-              showCount={true}
-              placeholder="Search Music"
-              selectAllLabel="All Years"
-              react={{ and: ["searchbox"] }}
-              showFilter={true}
-              filterLabel="Year"
-              URLParams={false}
-              className="dropdown"
-            />
-            {console.log(searchDataFieldDict[this.state.FilterBy])}
-            <RadioSearch
-              handleChange={this.handleChange}
-              FilterBy={this.state.FilterBy}
+              <SingleDropdownList
+                componentId="yearfilter"
+                dataField="year.raw"
+                title="PubYear"
+                size={100}
+                sortBy="asc"
+                defaultSelected="All Years"
+                showCount={true}
+                placeholder="Search Music"
+                selectAllLabel="All Years"
+                react={{ and: ["searchbox"] }}
+                showFilter={true}
+                filterLabel="Year"
+                URLParams={false}
+                className="dropdown"
+              />
+              <RadioSearch
+                handleChange={this.handleChange}
+                FilterBy={this.state.FilterBy}
+              />
+              <div className="clear-fix" />
+            </div>
+            <div
+              className="sections_name"
+              style={{
+                display: "block",
+                width: "100%",
+                height: "300px",
+                color: "#fff",
+                textAlign: "center",
+                lineHeight: "300px",
+                backgroundsize: "cover",
+                background:
+                  "linear-gradient( to right bottom, rgba(50,109,233,0.9), rgba(126,82,232,0.9) ), url('https://images7.alphacoders.com/480/thumb-1920-480927.jpg'),no-repeat"
+              }}
+            >
+              <h1>All Songs</h1>
+            </div>
+            <ResultCard
+              componentId="result"
+              dataField="titles"
+              title="Results"
+              from={0}
+              size={15}
+              pagination={true}
+              pages={5}
+              react={{ and: ["searchbox", "yearfilter"] }}
+              onData={res => {
+                return {
+                  description: (
+                    <Link
+                      className="card_link"
+                      to={`/song/${
+                        this.state.url_title != "default"
+                          ? this.state.url_title
+                          : null
+                      }`}
+                    >
+                      <div className="card_content">
+                        <img
+                          width="100"
+                          src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png"
+                        />
+                        <h2>{res.title}</h2>
+                        <p>{res.artist + " " + "★".repeat(res.location)}</p>
+                        <p>{res.year}</p>
+                      </div>
+                    </Link>
+                  ),
+
+                  containerProps: {
+                    onMouseEnter: () => {
+                      let urlTitle = res.title;
+                      this.setState({ url_title: urlTitle });
+                    },
+                    onclick: () => {
+                      let urlTitle = res.title;
+                      this.setState({ url_title: urlTitle });
+                    }
+                  }
+                };
+              }}
+              innerClass={{ listItem: "itemcontainer" }}
+              className="ResultCard"
+              style={{ textAlign: "center" }}
             />
             <div className="clear-fix" />
+            <div className="contact_btns">
+              <a href="/allplaylist" className="playlist">
+                <span>All Playlists</span>
+              </a>
+              {/* <span className="middle">|</span> */}
+            </div>
           </div>
-          <div
-            className="sections_name"
-            style={{
-              display: "block",
-              width: "100%",
-              height: "300px",
-              color: "#fff",
-              textAlign: "center",
-              lineHeight: "300px",
-              backgroundsize: "cover",
-              background:
-                "linear-gradient( to right bottom, rgba(50,109,233,0.9), rgba(126,82,232,0.9) ), url('https://images7.alphacoders.com/480/thumb-1920-480927.jpg'),no-repeat"
-            }}
-          >
-            <h1>All Songs</h1>
-          </div>
-          <ResultCard
-            componentId="result"
-            dataField="titles"
-            title="Results"
-            from={0}
-            size={15}
-            pagination={true}
-            pages={5}
-            react={{ and: ["searchbox", "yearfilter"] }}
-            onData={res => {
-              return {
-                description: (
-                  <Link
-                    className="card_link"
-                    to={`/song/${
-                      this.state.url_title != "default"
-                        ? this.state.url_title
-                        : null
-                    }`}
-                  >
-                    <div className="card_content">
-                      <img
-                        width="100"
-                        src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png"
-                      />
-                      <h2>{res.title}</h2>
-                      <p>{res.artist + " " + "★".repeat(res.location)}</p>
-                      <p>{res.year}</p>
-                    </div>
-                  </Link>
-                ),
+        </ReactiveBase>
+        <Footer />
 
-                containerProps: {
-                  onMouseEnter: () => {
-                    let urlTitle = res.title;
-                    this.setState({ url_title: urlTitle });
-                  },
-                  onclick: () => {
-                    let urlTitle = res.title;
-                    this.setState({ url_title: urlTitle });
-                  }
-                }
-              };
-            }}
-            innerClass={{ listItem: "itemcontainer" }}
-            className="ResultCard"
-            style={{ textAlign: "center" }}
-          />
-          <div className="clear-fix" />
-          <div className="contact_btns">
-            <a href="/allplaylist" className="playlist">
-              <span>All Playlists</span>
-            </a>
-            {/* <span className="middle">|</span> */}
-          </div>
-        </div>
         <style jsx>{`
           * {
             padding: 0;
@@ -337,7 +341,7 @@ class Reactive_Base extends Component {
             margin-top: 50px;
           }
         `}</style>
-      </ReactiveBase>
+      </div>
     );
   }
 }

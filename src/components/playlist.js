@@ -1,21 +1,39 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 
-import { Icon } from "react-icons-kit";
-import { play2 } from "react-icons-kit/icomoon/play2";
+import ReactJkMusicPlayer from "react-jinke-music-player";
+import "react-jinke-music-player/assets/index.css";
 
-import Playlist from "../components/playlist";
+let songNum = 0;
 class PLayList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       playlist: "none",
       SongData: [],
-      activeItem: -1,
-      song: ""
+      options: {
+        name: "Canon (piano version)",
+        defaultPlayIndex: songNum,
+        volume: 100,
+        muted: false,
+        networkState: 1,
+        readyState: 4,
+        paused: false,
+        autoPlay: false,
+        isMobile: false,
+        ended: false,
+        preload: "true",
+        openText: "Play",
+        closeText: "pause",
+        panelTitle: "Song",
+        toggleMode: false,
+        mode: "full",
+        startDate: null,
+        defaultPosition: { top: 20, left: 400 },
+        played: { length: 1 }
+      }
     };
-    // this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -25,19 +43,45 @@ class PLayList extends React.Component {
         let songs = response.data.filter(
           song => song.language === this.props.location.language
         );
+        let arr = [];
+        songs.forEach(song => {
+          arr.push({
+            name: song.title,
+            singer: song.artist,
+            cover: "https://www.lijinke.cn/music/1387583682387727.jpg",
+            musicSrc: "http://www.nihilus.net/soundtracks/Static%20Memories.mp3"
+          });
+        });
 
-        this.setState({ SongData: songs });
+        this.setState({
+          SongData: songs,
+          options: {
+            audioLists: arr,
+            // name: "Canon (piano version)",
+            // defaultPlayIndex: songNum,
+            // volume: 100,
+            // muted: false,
+            // networkState: 1,
+            // readyState: 4,
+            // isMobile: false,
+            // paused: false,
+            // ended: false,
+            // preload: "true",
+            // openText: "Play",
+            // closeText: "pause",
+            // panelTitle: "Song",
+            // toggleMode: false,
+            // mode: "full",
+            autoPlay: false
+            // startDate: null,
+            // defaultPosition: { top: 20, left: 400 },
+            // played: { length: 1 }
+          }
+        });
       })
-      .catch(function(error) {
-        console.log(error);
-      });
+      .catch(function(error) {});
   }
 
-  handleClick(index) {
-    this.setState({
-      activeItem: index
-    });
-  }
   render() {
     return (
       <div className="PlayListsection">
@@ -46,6 +90,10 @@ class PLayList extends React.Component {
             width="100"
             src="https://raw.githubusercontent.com/dpfernandes/class04-final-project/master/ama1.png"
           />
+          <a href="/allplaylist" className="goBack_btn">
+            <span>&#171; </span>
+            Go back!
+          </a>
           <h2>{this.props.location.language} Playlist</h2>
         </div>
 
@@ -56,24 +104,15 @@ class PLayList extends React.Component {
             <span className="year">Year</span>
           </div>
 
-          {console.log(this.state.SongData[0])}
           {this.state.SongData.map((song, index) => {
             return (
               <div className="song">
                 <span className="number">{index + 1}</span>
+
                 <h3
                   key={index}
                   className={this.state.activeItem === index ? "active" : ""}
-                  onClick={this.handleClick.bind(this, index)}
                 >
-                  <Icon
-                    key={index}
-                    className={
-                      this.state.activeItem === index ? "icon active" : "icon"
-                    }
-                    onClick={this.handleClick.bind(this, index)}
-                    icon={play2}
-                  />{" "}
                   {song.title}
                 </h3>
                 <span className="year">{song.year}</span>
@@ -81,15 +120,9 @@ class PLayList extends React.Component {
             );
           })}
         </div>
-        <div className="audio">
-          <audio controls>
-            <source
-              src="http://www.nihilus.net/soundtracks/Static%20Memories.mp3"
-              type="audio/mp3"
-            />
-          </audio>
-        </div>
+        {console.log(songNum)}
 
+        <ReactJkMusicPlayer {...this.state.options} />
         <style jsx>{`
           .PlayListsection {
             max-width: 100%;
@@ -186,22 +219,25 @@ class PLayList extends React.Component {
             width: 10%;
           }
 
-          .audio {
-            width: 100%;
-            height: 80px;
-            background: #f1f3f4;
-            position: absolute;
-            bottom: 0;
-            left: 0;
+          a.goBack_btn {
+            margin-top: 10px;
+            display: block;
+            text-decoration: none;
+            color: #333;
           }
-
-          audio {
-            position: absolute;
-            top: 10px;
-            display: flex;
-            border-radius: 0;
-            width: 90%;
-            left: 0%;
+          a.goBack_btn span {
+            display: inline;
+            font-size: 20px;
+            margin-right: -10px;
+            opacity: 0;
+            transition: all 0.2s;
+          }
+          a.goBack_btn:hover {
+            color: rgba(50, 109, 233, 1);
+          }
+          a.goBack_btn:hover span {
+            margin-right: 0px;
+            opacity: 1;
           }
         `}</style>
       </div>

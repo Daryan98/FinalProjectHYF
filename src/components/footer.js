@@ -8,7 +8,7 @@ class Footer extends React.Component {
           <span>Aferican Music</span>
         </div>
         <div>
-          <Link className="link" to="allPlaylist">
+          <Link className="link" to="allplaylist">
             <span>All Playlists</span>
           </Link>
         </div>
