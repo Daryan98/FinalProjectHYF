@@ -252,7 +252,7 @@ class Reactive_Base extends Component {
             width: 100%;
             float: left;
             margin-top: 40px;
-            margin-bottom: 100px;
+            margin-bottom: 50px;
             z-index: -1;
           }
 

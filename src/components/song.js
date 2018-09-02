@@ -63,12 +63,6 @@ class Song extends React.Component {
           </div>
 
           <ReactJkMusicPlayer {...this.state.options} />
-          {/* <audio controls {...this.state.play}>
-              <source
-                src="http://www.nihilus.net/soundtracks/Static%20Memories.mp3"
-                type="audio/mp3"
-              />
-            </audio> */}
         </div>
         <div className="clear-fix" />
 

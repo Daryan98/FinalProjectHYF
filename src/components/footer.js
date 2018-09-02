@@ -5,7 +5,7 @@ class Footer extends React.Component {
     return (
       <footer className="footer">
         <div>
-          <span>Aferican Music</span>
+          <span>african Music</span>
         </div>
         <div>
           <Link className="link" to="allplaylist">

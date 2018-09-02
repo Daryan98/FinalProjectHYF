@@ -13,17 +13,6 @@ class PLayList extends React.Component {
   }
 
   componentDidMount() {
-    // axios
-    //   .get("http://localhost:3001/categories")
-    //   .then(response => {
-    //     response.data.forEach((song, i) => {
-    //       this.state.SongData.push(song);
-    //     });
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
-
     axios
       .get("http://localhost:3001/languages")
       .then(response => {

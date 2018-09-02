@@ -27,8 +27,8 @@ class PLayList extends React.Component {
         openText: "Play",
         closeText: "pause",
         panelTitle: "Song",
-        toggleMode: false,
         mode: "full",
+        toggleMode: false,
         startDate: null,
         defaultPosition: { top: 20, left: 400 },
         played: { length: 1 }
@@ -57,25 +57,9 @@ class PLayList extends React.Component {
           SongData: songs,
           options: {
             audioLists: arr,
-            // name: "Canon (piano version)",
-            // defaultPlayIndex: songNum,
-            // volume: 100,
-            // muted: false,
-            // networkState: 1,
-            // readyState: 4,
-            // isMobile: false,
-            // paused: false,
-            // ended: false,
-            // preload: "true",
-            // openText: "Play",
-            // closeText: "pause",
-            // panelTitle: "Song",
-            // toggleMode: false,
-            // mode: "full",
+            isMobile: false,
+            toggleMode: false,
             autoPlay: false
-            // startDate: null,
-            // defaultPosition: { top: 20, left: 400 },
-            // played: { length: 1 }
           }
         });
       })
@@ -120,7 +104,6 @@ class PLayList extends React.Component {
             );
           })}
         </div>
-        {console.log(songNum)}
 
         <ReactJkMusicPlayer {...this.state.options} />
         <style jsx>{`
